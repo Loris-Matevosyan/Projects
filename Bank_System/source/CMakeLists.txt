@@ -1,0 +1,6 @@
+add_subdirectory(Bank)
+add_subdirectory(Database)
+add_subdirectory(Manager)
+add_subdirectory(Customer)
+add_subdirectory(GlobalsAndOperations)
+add_subdirectory(TextOutput)

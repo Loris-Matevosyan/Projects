@@ -1,8 +1,9 @@
 #include "database.h"
 
 
-Database::Database() : bankDb(QSqlDatabase::addDatabase("QPSQL"))
+Database::Database()
 {
+    bankDb = QSqlDatabase::addDatabase("QPSQL");
     bankDb.setHostName("localhost");
     bankDb.setPort(5432);
     bankDb.setDatabaseName("BankSystem");
@@ -28,3 +29,4 @@ Database::~Database() noexcept
 {
     bankDb.close();
 }
+

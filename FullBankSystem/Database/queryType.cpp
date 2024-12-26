@@ -7,7 +7,7 @@ QueryType::QueryType(QObject *parent)
 {   /* Empty */   }
 
 
-QueryType::QueryType(QObject *parent, Request request = Request::balance)
+QueryType::QueryType(Request request, QObject *parent)
     : QObject{parent}, m_request{request}
 {   /* Empty */   }
 
@@ -21,4 +21,9 @@ QString QueryType::toString()
 int QueryType::toInt()
 {
     return EnumToInt(m_request);
+}
+
+QueryType::Request& QueryType::getRequest()
+{
+    return m_request;
 }

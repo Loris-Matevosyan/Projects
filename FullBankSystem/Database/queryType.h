@@ -43,11 +43,12 @@ public:
     };
     Q_ENUM(Request);
 
-    QueryType(QObject *parent);
-    QueryType(QObject *parent, Request request);
+    QueryType(QObject *parent = nullptr);
+    QueryType(Request request = Request::balance, QObject *parent = nullptr);
 
     QString toString();
     int toInt();
+    QueryType::Request& getRequest();
 
     ~QueryType() noexcept = default;
 

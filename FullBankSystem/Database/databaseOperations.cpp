@@ -1,4 +1,9 @@
 #include "databaseOperations.h"
+#include <type_traits>
+
+
+using RequestType = QueryType::Request;
+using EnumerationType = std::underlying_type_t<RequestType>;
 
 
 
@@ -26,9 +31,28 @@ void DatabaseOperations::rollback()
 }
 
 
-QString DatabaseOperations::get(const QString& firstName, const QString& LastName,QueryType queryType)
+QString DatabaseOperations::get(const QString& firstName, const QString& LastName, QueryType queryType)
 {
     QString query;
+
+    switch(static_cast<EnumerationType>(queryType.getRequest()))
+    {
+        case static_cast<EnumerationType>(RequestType::information):
+
+            break;
+
+        case static_cast<EnumerationType>(RequestType::balance):
+
+            break;
+
+        case static_cast<EnumerationType>(RequestType::history):
+
+            break;
+
+        default:
+            break;
+    }
+
     return query;
 }
 

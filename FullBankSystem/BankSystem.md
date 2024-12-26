@@ -19,6 +19,16 @@
 ### The project will be updated dynamically
 
 In the future, variables, functions, classes, logic, GUI, filesystem, CMakeLists.txt, and much more may change depending on the needs that must be met.  
-In the initial stages, the project will undergo significant changes.
+In the initial stages, the project will undergo significant changes.<br><br>
 
-#### Suggestions about the project are welcome.
+### For using Unit Tests -> in CMakeLists.txt set the TESTING variable ON
+
+- set(TESTING ON)
+
+### For production code -> in CMakeLists.txt set the TESTING variable OFF
+
+- set(TESTING OFF)
+  
+<br>
+
+#### Suggestions about the project are welcome

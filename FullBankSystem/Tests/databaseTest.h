@@ -25,7 +25,7 @@ private slots:
     void databaseClassIsSingleton();
 
     void databaseConnected();
-    void databaseErrorWhileConnecting();
+    void databaseNoErrorWhileConnecting();
 
 };
 

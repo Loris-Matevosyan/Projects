@@ -5,8 +5,8 @@
 
 // QTEST_MAIN(DatabaseTest);
 
-QTEST_MAIN(QueryTypeTest);
+// QTEST_MAIN(QueryTypeTest);
 
-// QTEST_MAIN(DatabaseOperationsTest);
+QTEST_MAIN(DatabaseOperationsTest);
 
 

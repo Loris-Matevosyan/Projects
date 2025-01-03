@@ -25,6 +25,12 @@ Database& Database::getDatabase()
 }
 
 
+DatabaseOperations& Database::operation()
+{
+    return operations;
+}
+
+
 Database::~Database() noexcept
 {
     bankDb.close();

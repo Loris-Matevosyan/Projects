@@ -2,7 +2,6 @@
 #define DATABASEOPERATIONS_H
 
 #include <QSqlDatabase>
-#include <QSqlQuery>
 #include <QString>
 #include <queryType.h>
 
@@ -10,7 +9,6 @@
 class DatabaseOperations
 {
 private:
-    QSqlQuery query;
 
     void start();
     void commit();
@@ -20,7 +18,7 @@ public:
     DatabaseOperations();
 
 
-    QString get(const QString& firstName, const QString& lastName, QueryType queryType);
+    QString get(const QString& firstName, const QString& lastName, QueryType& queryType);
     bool create(const QString& information);
     bool insert(const QString& information);
     bool update(const QString& information);

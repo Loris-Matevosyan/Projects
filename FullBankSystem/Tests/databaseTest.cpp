@@ -76,7 +76,7 @@ void DatabaseTest::databaseConnected()
 }
 
 
-void DatabaseTest::databaseErrorWhileConnecting()
+void DatabaseTest::databaseNoErrorWhileConnecting()
 {
     Database& database = Database::getDatabase();
     QSqlDatabase currentDatabase = QSqlDatabase::database();

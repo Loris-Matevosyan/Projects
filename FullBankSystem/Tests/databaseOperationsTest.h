@@ -2,7 +2,6 @@
 #define DATABASEOPERATIONSTEST_H
 
 #include <QObject>
-#include <QTest>
 #include "databaseOperations.h"
 
 
@@ -16,6 +15,9 @@ public:
 
 private slots:
 
+    void getQueryInformation();
+    void getQueryBalance();
+    void getQueryHistory();
 
 };
 

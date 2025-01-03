@@ -23,6 +23,7 @@ private:
 public:
 
     static Database& getDatabase();
+    DatabaseOperations& operation();
 
     ~Database() noexcept;
 };

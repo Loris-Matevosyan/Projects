@@ -9,11 +9,12 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Core Sql Test)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
-set(TESTING ON)
+set(TESTING OFF)
 
 
 if(TESTING)
     set(EXECUTABLE testBankSystem)
+    set(TESTING_CMAKE Tests/CMakeLists.txt)
 
     add_subdirectory(Tests)
 
@@ -28,6 +29,7 @@ if(TESTING)
 
 else()
     set(EXECUTABLE appBankSystem)
+    set(TESTING_CMAKE)
 
     qt_add_executable(${EXECUTABLE}
         main.cpp
@@ -45,14 +47,17 @@ add_subdirectory(Database)
 qt_add_qml_module(${EXECUTABLE}
     URI BankSystem
     VERSION 1.0
+    RESOURCES BankSystem.md
     SOURCES Exceptions/databaseConnectionError.h
     SOURCES Exceptions/queryError.h
-    RESOURCES BankSystem.md
+    SOURCES ${DATABASE_SOURCES}
+    RESOURCES Database/CMakeLists.txt
+    RESOURCES ${TESTING_CMAKE}
     QML_FILES Main.qml
     QML_FILES MainMenu.qml
-    SOURCES ${DATABASE_SOURCES}
+    QML_FILES MainButton.qml
+    RESOURCES Resources.qrc
 )
-
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -68,6 +73,7 @@ set_target_properties(${EXECUTABLE} PROPERTIES
 target_link_libraries(${EXECUTABLE}
     PRIVATE Qt6::Quick Qt6::Core Qt6::Sql Qt6::Test
 )
+
 
 include(GNUInstallDirs)
 install(TARGETS ${EXECUTABLE}

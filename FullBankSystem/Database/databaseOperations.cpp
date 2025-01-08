@@ -129,23 +129,23 @@ QString DatabaseOperations::get(const QString& firstName, const QString& lastNam
 
             checkExecution();
 
-            if( query.next() )
+            if( !query.next() )
             {
-                if( query.isNull(1) )
-                {
-                    ansStream << "Deposit: " << query.value(DEPOSIT_COLUMN).toString() << "\n";
-                }
-                else
-                {
-                    ansStream << "Withdrawal: " << query.value(WITHDRAWAL_COLUMN).toString() << "\n";
-                }
+                doesntExist();
+                break;
+            }
 
-                ansStream << "Operation Time: " << query.value(OPERATION_TIME_COLUMN).toString();
+            if( query.isNull(WITHDRAWAL_COLUMN) )
+            {
+                ansStream << "Deposit: " << query.value(DEPOSIT_COLUMN).toString() << "\n";
             }
             else
             {
-                doesntExist();
+                ansStream << "Withdrawal: " << query.value(WITHDRAWAL_COLUMN).toString() << "\n";
             }
+
+            ansStream << "Operation Time: " << query.value(OPERATION_TIME_COLUMN).toString();
+
 
             break;
 

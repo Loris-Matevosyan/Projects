@@ -3,7 +3,6 @@
 #include "queryType.h"
 #include <QString>
 #include <QTest>
-#include <QDebug>
 #include <type_traits>
 
 

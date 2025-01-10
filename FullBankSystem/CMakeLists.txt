@@ -9,55 +9,66 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Core Sql Test)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
+
+if(Qt6_VERSION VERSION_GREATER_EQUAL "6.8")
+    qt_policy(SET QTP0004 NEW)
+else()
+    message(WARNING "QTP0004 policy is not available in this Qt version")
+endif()
+
+
 set(TESTING OFF)
+set(TESTS_DIR)
+set(TESTS_CMAKE)
 
 
 if(TESTING)
-    set(EXECUTABLE testBankSystem)
-    set(TESTING_CMAKE Tests/CMakeLists.txt)
 
     add_subdirectory(Tests)
 
-    qt_add_executable(${EXECUTABLE}
-        test.cpp
-        ${TESTS_SOURCES}
-    )
-
-    target_include_directories(${EXECUTABLE} PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/Tests
-    )
+    set(EXECUTABLE testBankSystem)
+    set(MAIN test.cpp ${TESTS_SOURCES})
+    set(TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Tests)
+    set(TESTS_CMAKE Tests/CMakeLists.txt)
 
 else()
-    set(EXECUTABLE appBankSystem)
-    set(TESTING_CMAKE)
 
-    qt_add_executable(${EXECUTABLE}
-        main.cpp
-    )
+    set(EXECUTABLE appBankSystem)
+    set(MAIN main.cpp)
 
 endif()
 
 
-target_include_directories(${EXECUTABLE} PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/Database ${CMAKE_CURRENT_SOURCE_DIR}/Exceptions
+add_subdirectory(Database)
+add_subdirectory(Exceptions)
+add_subdirectory(GUI)
+
+
+qt_add_executable(${EXECUTABLE}
+    ${MAIN}
+    ${DATABASE_SOURCES}
+    ${EXCEPTION_SOURCES}
 )
 
-add_subdirectory(Database)
+target_include_directories(${EXECUTABLE} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/Database ${CMAKE_CURRENT_SOURCE_DIR}/Exceptions ${TESTS_DIR}
+)
+
 
 qt_add_qml_module(${EXECUTABLE}
     URI BankSystem
     VERSION 1.0
-    RESOURCES BankSystem.md
-    SOURCES Exceptions/databaseConnectionError.h
-    SOURCES Exceptions/queryError.h
-    SOURCES ${DATABASE_SOURCES}
     RESOURCES Database/CMakeLists.txt
-    RESOURCES ${TESTING_CMAKE}
-    QML_FILES Main.qml
-    QML_FILES MainMenu.qml
-    QML_FILES MainButton.qml
-    RESOURCES Resources.qrc
+              Exceptions/CMakeLists.txt
+              GUI/CMakeLists.txt
+              ${TESTS_CMAKE}
+              Resources.qrc
+              BankSystem.md
+    QML_FILES
+        Main.qml
 )
+
+
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

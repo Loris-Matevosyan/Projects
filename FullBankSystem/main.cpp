@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
     engine.loadFromModule("BankSystem", "Main");
 
-
     try
     {
         Database& databaseOne = Database::getDatabase();

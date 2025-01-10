@@ -1,4 +1,5 @@
 import QtQuick
+import BankSystem.GUI.MainMenu
 
 Window
 {
@@ -19,5 +20,6 @@ Window
     {
         id: mainMenu
     }
+
 }
 

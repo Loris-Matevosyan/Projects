@@ -2,6 +2,7 @@ import QtQuick
 import BankSystem.GUI.MainMenu
 import BankSystem.GUI.ManagerMenu
 
+
 Window
 {
     width: 640
@@ -37,9 +38,8 @@ Window
         {
             id: managerMenu
 
-            onExitClicked: loader.sourceComponent = mainComponent
+            onExitManagerMenu: loader.sourceComponent = mainComponent
         }
     }
-
 }
 

@@ -14,13 +14,11 @@ Button
 
     background: Rectangle
     {
-        id: rect
         gradient: Gradient {
-            // id: buttonGradient
             GradientStop { position: 0.0; color: "darkslateblue" }
             GradientStop { position: 1.0; color: "skyblue" }
         }
-        color: "yellow"
+
         border.color: "darkblue"
         radius: 4
     }

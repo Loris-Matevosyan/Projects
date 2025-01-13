@@ -1,5 +1,6 @@
 import QtQuick
 import BankSystem.GUI.MainMenu
+import BankSystem.GUI.ManagerMenu
 
 Window
 {
@@ -10,15 +11,34 @@ Window
 
     Loader
     {
-        id: loaderOne
+        id: loader
 
         anchors.fill: parent
-        sourceComponent: mainMenu
+        sourceComponent: mainComponent
     }
 
-    MainMenu
+    Component
     {
-        id: mainMenu
+        id: mainComponent
+
+        MainMenu
+        {
+            id: mainMenu
+
+            onManagerClicked: loader.sourceComponent = managerComponent
+        }
+    }
+
+    Component
+    {
+        id: managerComponent
+
+        ManagerMenu
+        {
+            id: managerMenu
+
+            onExitClicked: loader.sourceComponent = mainComponent
+        }
     }
 
 }

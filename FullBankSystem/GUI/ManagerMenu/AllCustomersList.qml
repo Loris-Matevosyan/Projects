@@ -1,5 +1,6 @@
 import QtQuick
-import QtQuick.Controls 2.15
+import QtQuick.Controls
+import main.Database
 
 
 Item
@@ -19,30 +20,9 @@ Item
             GradientStop { position: 1.0; color: "skyblue" }
         }
 
-        ScrollView
+        CustomersList
         {
-            id: scrollView
-
-            anchors.left: parent.horizontalCenter
-            y: 40
-            width: 285
-            height: 400
-
-            contentHeight: 600
-            clip: true
-
-            ScrollBar.vertical.interactive: true
-
-            Rectangle
-            {
-                anchors.fill: parent
-                color: "transparent"
-
-                Text
-                {
-                    id: textList0
-                }
-            }
+            customersList: Database.allCustomers()
         }
 
         Button

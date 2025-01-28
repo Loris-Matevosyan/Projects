@@ -28,7 +28,7 @@ using EnumerationType = std::underlying_type_t<RequestType>;
 
 DatabaseOperations::DatabaseOperations()
 {
-    start();
+    // Empty
 }
 
 
@@ -65,7 +65,7 @@ QString DatabaseOperations::get(const QString& firstName, const QString& lastNam
 
     auto checkExecution = [&]()
     {
-        if(!query.exec(command))
+        if( !query.exec(command) )
             {
                 throw QueryError(query.lastError().text().toStdString());
             }
@@ -153,10 +153,58 @@ QString DatabaseOperations::get(const QString& firstName, const QString& lastNam
             break;
     }
 
+    return answer;
+}
 
+
+QStringList DatabaseOperations::getAll()
+{
+    #define FIRST_NAME 0
+    #define LAST_NAME 1
+    #define BALANCE 2
+    #define STATUS 3
+
+    QSqlQuery query;
+    QString command;
+    QTextStream cmdStream(&command);
+
+    QStringList answer;
+
+    cmdStream << "SELECT info.first_name, info.last_name, bal.balance, bal.status" << "\n"
+              << "FROM customer_information as info" << "\n"
+              << "LEFT OUTER JOIN customer_balance as bal" << "\n"
+              << "ON info.customer_id = bal.customer_id";
+
+    if( !query.exec(command) )
+    {
+        throw QueryError(query.lastError().text().toStdString());
+    }
+
+    if( query.next() )
+    {
+        answer << QString("First name").leftJustified(12, ' ')
+                + QString("Last name").leftJustified(15, ' ')
+                + QString("Balance").leftJustified(12, ' ')
+                + QString("Customer type").leftJustified(15, ' ')
+               << "\n";
+
+        do
+        {
+            answer << query.value(FIRST_NAME).toString().leftJustified(12, ' ')
+                    + query.value(LAST_NAME).toString().leftJustified(15, ' ')
+                    + query.value(BALANCE).toString().leftJustified(12, ' ')
+                    + query.value(STATUS).toString().leftJustified(10, ' ');
+        }
+        while( query.next() );
+    }
+    else
+    {
+        answer << "Database is empty";
+    }
 
     return answer;
 }
+
 
 
 bool DatabaseOperations::create(const QString& information)

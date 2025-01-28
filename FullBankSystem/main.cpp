@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include "database.h"
 
 
@@ -9,6 +10,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    qmlRegisterSingletonType<Database>("main.Database", 1, 0, "Database", singletonDatabase);
+
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,
@@ -16,15 +20,6 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.loadFromModule("BankSystem", "Main");
-
-    // try
-    // {
-    //     Database& databaseOne = Database::getDatabase();
-    // }
-    // catch(const DatabaseConnectionError& error)
-    // {
-    //     qFatal() << error.what();
-    // }
 
 
     return app.exec();

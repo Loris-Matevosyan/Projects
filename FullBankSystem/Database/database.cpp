@@ -1,7 +1,7 @@
 #include "database.h"
 
 
-Database::Database()
+Database::Database(QObject* parent) : QObject(parent)
 {
     bankDb = QSqlDatabase::addDatabase("QPSQL");
     bankDb.setHostName("localhost");
@@ -10,11 +10,21 @@ Database::Database()
     bankDb.setUserName("username");
     bankDb.setPassword("password");
 
-    if(!bankDb.open())
+
+    try
     {
-        throw DatabaseConnectionError(bankDb.lastError().text().toStdString());
+        if(!bankDb.open())
+        {
+            throw DatabaseConnectionError(bankDb.lastError().text().toStdString());
+        }
+    }
+    catch(const DatabaseConnectionError& error)
+    {
+        qFatal() << error.what();
     }
 
+
+    operations.start();
 }
 
 
@@ -35,4 +45,11 @@ Database::~Database() noexcept
 {
     bankDb.close();
 }
+
+
+QStringList Database::allCustomers()
+{
+    return operations.getAll();
+}
+
 

@@ -7,6 +7,8 @@ Item
 {
     anchors.fill: parent
 
+    property string listType: ""
+
     signal exitClicked
 
     Rectangle
@@ -22,7 +24,13 @@ Item
 
         CustomersList
         {
-            customersList: Database.allCustomers()
+            customersList:
+                if(listType === "All customers")
+                    Database.allCustomers()
+                else if(listType === "Vip customers")
+                    Database.vipCustomers()
+                else if(listType === "Standard customers")
+                    Database.standardCustomers()
         }
 
         Button

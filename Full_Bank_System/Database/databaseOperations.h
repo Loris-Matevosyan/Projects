@@ -21,6 +21,9 @@ public:
 
     QString get(const QString& firstName, const QString& lastName, QueryType& queryType);
     QStringList getAll();
+    QStringList getCustomers(const QString& type);
+    QStringList getVip();
+    QStringList getStandard();
     bool create(const QString& information);
     bool insert(const QString& information);
     bool update(const QString& information);

@@ -6,7 +6,9 @@ qt_add_qml_module(ManagerMenu
         ManagerMainMenu.qml
         MenuButton.qml
         CustomersList.qml
-        AllCustomersList.qml
+        CustomersListTemplate.qml
+        AddCustomer.qml
+        CustomTextInput.qml
     OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/BankSystem/GUI/ManagerMenu
 )
 

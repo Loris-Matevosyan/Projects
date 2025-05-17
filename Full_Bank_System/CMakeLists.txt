@@ -63,7 +63,7 @@ qt_add_qml_module(${EXECUTABLE}
               GUI/CMakeLists.txt
               ${TESTS_CMAKE}
               Resources.qrc
-              BankSystem.md
+              README.md
     QML_FILES
         Main.qml
 )

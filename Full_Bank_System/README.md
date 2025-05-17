@@ -4,7 +4,7 @@
 
 <img src="https://img.freepik.com/free-vector/bank-composition-with-outdoor-landscape-classic-building-with-columns-car-pedestrian-silhouette-cityscape-vector-illustration_1284-82674.jpg" alt="Bank System Image" width="800" height="400">
 
-## This project is currently in progress
+## This project is currently in development but available for use
 
 ---
 

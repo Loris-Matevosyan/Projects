@@ -6,8 +6,8 @@ Database::Database(QObject* parent) : QObject(parent)
     bankDb = QSqlDatabase::addDatabase("QPSQL");
     bankDb.setHostName("localhost");
     bankDb.setPort(5432);
-    bankDb.setDatabaseName("BankSystem");
-    bankDb.setUserName("username");
+    bankDb.setDatabaseName("bankSystem");
+    bankDb.setUserName("postgres");
     bankDb.setPassword("password");
 
 
@@ -52,4 +52,15 @@ QStringList Database::allCustomers()
     return operations.getAll();
 }
 
+
+QStringList Database::vipCustomers()
+{
+    return operations.getVip();
+}
+
+
+QStringList Database::standardCustomers()
+{
+    return operations.getStandard();
+}
 

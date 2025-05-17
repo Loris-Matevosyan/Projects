@@ -206,6 +206,64 @@ QStringList DatabaseOperations::getAll()
 }
 
 
+QStringList DatabaseOperations::getCustomers(const QString& customerType)
+{
+#define FIRST_NAME 0
+#define LAST_NAME 1
+#define BALANCE 2
+
+    QSqlQuery query;
+    QString command;
+    QTextStream cmdStream(&command);
+
+    QStringList answer;
+
+    cmdStream << "SELECT info.first_name, info.last_name, bal.balance" << "\n"
+              << "FROM customer_information as info" << "\n"
+              << "LEFT OUTER JOIN customer_balance as bal" << "\n"
+              << "ON info.customer_id = bal.customer_id" << "\n"
+              << QString("WHERE bal.status = '%1'").arg(customerType);
+
+    if( !query.exec(command) )
+    {
+        throw QueryError(query.lastError().text().toStdString());
+    }
+
+    if( query.next() )
+    {
+        answer << QString("First name").leftJustified(12, ' ')
+                + QString("Last name").leftJustified(15, ' ')
+                + QString("Balance").leftJustified(12, ' ')
+               << "\n";
+
+        do
+        {
+            answer << query.value(FIRST_NAME).toString().leftJustified(12, ' ')
+                    + query.value(LAST_NAME).toString().leftJustified(15, ' ')
+                    + query.value(BALANCE).toString().leftJustified(12, ' ');
+        }
+        while( query.next() );
+    }
+    else
+    {
+        answer << "Database is empty";
+    }
+
+    return answer;
+}
+
+
+QStringList DatabaseOperations::getVip()
+{
+    return getCustomers("vip");
+}
+
+
+QStringList DatabaseOperations::getStandard()
+{
+    return getCustomers("standard");
+}
+
 
 bool DatabaseOperations::create(const QString& information)
 {

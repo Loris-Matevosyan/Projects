@@ -51,7 +51,7 @@ Item {
 
                     text: qsTr(modelData)
                     font.family: "Consolas"
-                    color: "white"
+                    color: index === 0 ? "lightblue" : "white"
                 }
             }
         }

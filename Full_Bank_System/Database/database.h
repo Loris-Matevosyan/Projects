@@ -34,6 +34,8 @@ public:
 
 public slots:
     Q_INVOKABLE QStringList allCustomers();
+    Q_INVOKABLE QStringList vipCustomers();
+    Q_INVOKABLE QStringList standardCustomers();
 };
 
 
